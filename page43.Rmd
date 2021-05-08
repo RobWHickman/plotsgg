@@ -172,7 +172,7 @@ all_locations <- bind_rows(
 ) %>%
   pull(name) %>%
   paste0(., ", UK") %>%
-  map_df(googleway_geocode, key = "AIzaSyDMq4MLMlSvhdFmBIf2oYVq3Y61DlI2W1I")
+  map_df(googleway_geocode, key = "")
 
 ```
 
