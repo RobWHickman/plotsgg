@@ -1,0 +1,22 @@
+---
+title: "lidar plots"
+weight: 5
+author: "Robert Hickman"
+date: "2021-05-09T11:00:00+05:30"
+draft: false
+image: https://i.imgur.com/yI50c8r.jpg
+showonlyimage: true
+output: html_document
+---
+
+
+I'm fully obsessed with making maps using 3D LiDAR data at the moment. For some examples of why and the full potential see Sean Conway's work at [Muir Way](https://muir-way.com/collections/vintage-relief).
+
+The easiest way I've seen to get going is using [{EAlidaR}](https://github.com/h-a-graham/EAlidaR) from [Hugh Graham](https://twitter.com/hughagraham) which has some nice tests to get going with [here](https://github.com/h-a-graham/EAlidaR/blob/master/tests/Run_test.R).
+
+These are two simple plots made by doing the bare minimum changes to the code for Cambridge and Oxford which I think work nicely due to the large college Quads which provide nice markers.
+
+![a small slice of Cambridge](/static/img/portfolio/lidar_squares/cambridge_original.png)
+
+
+![a small slice of Oxford](/static/img/portfolio/lidar_squares/oxford_original.png)
