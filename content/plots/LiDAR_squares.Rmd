@@ -11,6 +11,8 @@ output: html_document
 
 _hello (to some very small 3D slices of the) world!_
 
+<!--more-->
+
 I'm fully obsessed with making maps using 3D LiDAR data at the moment. For some examples of why and the full potential see Sean Conway's work at [Muir Way](https://muir-way.com/collections/vintage-relief).
 
 The easiest way I've seen to get going is using [{EAlidaR}](https://github.com/h-a-graham/EAlidaR) from [Hugh Graham](https://twitter.com/hughagraham) which has some nice tests to get going with [here](https://github.com/h-a-graham/EAlidaR/blob/master/tests/Run_test.R).
