@@ -13,18 +13,12 @@
       <pubDate>Sun, 09 May 2021 11:00:00 +0530</pubDate>
       
       <guid>https://plots.gg/plots/lidar_squares/</guid>
-      <description>I’m fully obsessed with making maps using 3D LiDAR data at the moment. For some examples of why and the full potential see Sean Conway’s work at Muir Way.
-The easiest way I’ve seen to get going is using {EAlidaR} from Hugh Graham which has some nice tests to get going with here.
-These are two simple plots made by doing the bare minimum changes to the code for Cambridge and Oxford which I think work nicely due to the large college Quads which provide nice markers.</description>
-    </item>
-    
-    <item>
-      <title>Name of the work 5</title>
-      <link>https://plots.gg/plots/work5/</link>
-      <pubDate>Sat, 05 Nov 2016 19:53:42 +0530</pubDate>
-      
-      <guid>https://plots.gg/plots/work5/</guid>
-      <description>&lt;p&gt;Fifth abundantly made Give sixth hath. Cattle creature i be don&amp;rsquo;t them.&lt;/p&gt;</description>
+      <description>
+&lt;script src=&#34;https://plots.gg/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;&lt;em&gt;hello (to some very small 3D slices of the) world!&lt;/em&gt;&lt;/p&gt;
+</description>
     </item>
     
   </channel>

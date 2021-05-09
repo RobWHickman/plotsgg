@@ -9,6 +9,9 @@ showonlyimage: true
 output: html_document
 ---
 
+_hello (to some very small 3D slices of the) world!_
+
+<!--more-->
 
 I'm fully obsessed with making maps using 3D LiDAR data at the moment. For some examples of why and the full potential see Sean Conway's work at [Muir Way](https://muir-way.com/collections/vintage-relief).
 
@@ -16,7 +19,10 @@ The easiest way I've seen to get going is using [{EAlidaR}](https://github.com/h
 
 These are two simple plots made by doing the bare minimum changes to the code for Cambridge and Oxford which I think work nicely due to the large college Quads which provide nice markers.
 
-![a small slice of Cambridge](/static/img/portfolio/lidar_squares/cambridge_original.png)
+### Cambridge
 
+![](https://i.imgur.com/yI50c8r.jpg)
 
-![a small slice of Oxford](/static/img/portfolio/lidar_squares/oxford_original.png)
+### Oxford
+
+![](https://i.imgur.com/AxXkssT.jpg)

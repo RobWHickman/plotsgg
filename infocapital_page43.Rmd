@@ -1,0 +1,237 @@
+---
+title: "Page 43"
+author: "Robert Hickman"
+date: "10/05/2021"
+output: html_document
+---
+
+```{r libraries, warning=FALSE,message=FALSE}
+library(tidyverse)
+library(rgdal)
+library(sf)
+library(ggthemes)
+library(cowplot)
+library(googleway)
+```
+
+```{r}
+# https://geoportal.statistics.gov.uk/datasets/826dc85fb600440889480f4d9dbb1a24_0
+shapes <- readOGR("~/Downloads/", layer = "Middle_Layer_Super_Output_Areas_(December_2011)_Boundaries", verbose = FALSE) %>%
+  st_as_sf() %>%
+  select(id = msoa11cd) %>%
+  st_centroid()
+
+```
+
+```{r}
+# boundary line nuts1 regions
+# https://osdatahub.os.uk/downloads/open/BoundaryLine
+uk <- readRDS("~/Desktop/nuts1_regions.rds") %>%
+  mutate(country = case_when(
+    grepl("^Scotland", NAME) ~ "Scotland",
+    grepl("^Wales", NAME) ~ "Wales",
+    TRUE ~ "England"
+  )) %>%
+  group_by(country) %>%
+  summarise()
+
+london <- readRDS("~/Desktop/nuts1_regions.rds") %>%
+  filter(grepl("^London", NAME))
+
+bounding_box <- data.frame(
+  x = c(95000, 95000, 675000, 675000),
+  y = c(5000, 255000, 255000, 5000)
+) %>%
+  st_as_sf(coords = c("x", "y"), crs = st_crs(uk)) %>%
+  st_bbox()
+```
+
+```{r, eval=FALSE}
+# https://www.statistics.digitalresources.jisc.ac.uk/dataset/wu03ew-2011-msoamsoa-location-usual-residence-and-place-work-method-travel-work
+wu03ew <- read_csv("~/Downloads/wu03ew_v2.csv", col_types = cols()) %>%
+  select(from = `Area of residence`, to = `Area of workplace`, n = `All categories: Method of travel to work`)
+```
+
+```{r, eval = FALSE}
+point_data <- wu03ew %>%
+  filter(from != to) %>%
+  filter(n > 20) %>%
+  mutate(journey_id = 1:n()) %>%
+  pivot_longer(cols = c(-journey_id, -n)) %>%
+  left_join(shapes, by = c("value" = "id")) %>%
+  st_as_sf()
+
+line_data <- point_data %>%
+  group_by(journey_id, n) %>%
+  summarise() %>%
+  filter(!map_lgl(geometry, st_is, 'POINT')) %>%
+  st_cast('LINESTRING')
+
+```
+
+```{r}
+bg <- "#0b071c"
+```
+
+```{r}
+london_name <- data.frame(
+  name = "London",
+  type = "capital"
+)
+
+city_names <- data.frame(
+  name = c(
+    "Truro",
+    "Plymouth",
+    "Exeter",
+    "Swansea",
+    "Cardiff",
+    "Newport",
+    "Bristol",
+    "Hereford",
+    "Bath",
+    "Gloucester",
+    "Worcester",
+    "Salisbury",
+    "Oxford",
+    "Winchester",
+    "Southampton",
+    "Portsmouth",
+    "St Albans",
+    "Crawley",
+    "Cambridge",
+    "Chelmsford",
+    "Brighton",
+    "Canterbury"
+  ),
+  type = "city"
+)
+
+town_names <- data.frame(
+  name = c(
+    "Penzance",
+    "Falmouth",
+    "St Austell",
+    "Barnstaple",
+    "Haverfordwest",
+    "Llanelli",
+    "Carmarthen",
+    "Barry",
+    "Taunton",
+    "Weymouth",
+    "Cheltenham",
+    "Bournemouth",
+    "Swindon",
+    "Banbury",
+    "Newport",
+    "Newbury",
+    "Basingstoke",
+    "Reading",
+    "Aylesbury",
+    "Milton Keynes",
+    "Northampton",
+    "Farnborough",
+    "Guildford",
+    "Luton",
+    "Harlow",
+    "Colchester",
+    "Ipswich",
+    "Felixstowe",
+    "Clacton-on-Sea",
+    "Southend-on-Sea",
+    "Rochester",
+    "Maidstone",
+    "Tonbridge",
+    "Eastbourne",
+    "Hastings",
+    "Ashford",
+    "Folkestone",
+    "Margate",
+    "Ramsgate"
+  ),
+  type = "town"
+)
+```
+
+```{r}
+googleway_geocode <- function(place, key){
+  data <- google_geocode(place, key = key)
+  
+  if(length(data$results) == 0) return(NULL)
+  
+  latlon <- data$results$geometry$location[1,] %>%
+    mutate(location = place)
+  #returns coordinates in the form latitude/longitude
+  return(latlon)
+}
+
+all_locations <- bind_rows(
+  london_name,
+  city_names,
+  town_names
+) %>%
+  pull(name) %>%
+  paste0(., ", UK") %>%
+  map_df(googleway_geocode, key = "")
+
+```
+
+```{r}
+test <- all_locations %>%
+  mutate(name = gsub(", UK", "", location)) %>%
+  mutate(
+    lng = lng + 0.17,
+    lat = lat + 0.03
+  ) %>%
+  st_as_sf(coords = c("lng", "lat"), crs = st_crs(4326)) %>%
+  st_transform(crs = st_crs(london))
+```
+
+```{r}
+point_data <- readRDS("~/Desktop/commuter_points.rds")
+line_data <- readRDS("~/Desktop/all_commuter_lines.rds") %>%
+  filter(n > 19)
+
+```
+
+```{r}
+p <- ggplot() +
+  #geom_sf(data = point_data, colour = "white", alpha = 0.1, size = 0.05, shape = 19) +
+  geom_sf(data = line_data, aes(alpha = log(n)), colour = "blue", size = 0.5) +
+  geom_sf(data = line_data, aes(alpha = log(n)), colour = "white", size = 0.25) +
+  geom_sf_text(data = test, aes(label = name), colour = "white") +
+  scale_alpha_continuous(range = c(0.05, 0.1), guide = FALSE) +
+  geom_sf(data = london, fill = NA, colour = "orange", size = 1) +
+  theme_map() +
+  theme(panel.background = element_rect(fill = bg)) +
+  coord_sf(
+    xlim = c(bounding_box[[1]], bounding_box[[3]]),
+    ylim = c(bounding_box[[2]], bounding_box[[4]]),
+    expand = FALSE
+  )
+  
+inset_plot <- ggplot() +
+  geom_sf(data = uk, fill = "#005ac4", colour = bg, size = 0.35) +
+  geom_sf(data = london, fill = "orange", colour = NA) +
+  annotate("text", x = 264000, y = 806000, label = "SCOTLAND", colour = "white", size = 2.5) +
+  annotate("text", x = 504000, y = 456000, label = "ENGLAND", colour = "white", size = 2.5) +
+  annotate("text", x = 280000, y = 206000, label = "WALES", colour = "white", size = 2.5) +
+  annotate("text", x = 530000, y = 225000, label = "London", colour = "white", size = 2) +
+  annotate("text", x = 545000, y = 17500, label = "AREA ENLARGED", colour = "grey", size = 2, fontface = "bold") +
+  geom_sf(data = st_as_sfc(bounding_box), fill = NA, colour = "grey") +
+  theme_map() +
+  theme(panel.background = element_rect(fill = "transparent"), panel.border = element_blank()) +
+  coord_sf(ylim = c(5000, 950000))
+
+gg_inset_map1 = ggdraw() +
+  draw_plot(p) +
+  draw_plot(inset_plot, x = 0.7, y = 0.075, width = 0.375, height = 0.375) +
+  panel_border(remove = TRUE)
+
+ggsave(filename = "~/Desktop/plotsgg/testplot.png", 
+       plot = gg_inset_map1,
+       width = 17, 
+       height = 9,
+       dpi = 100)
+
+```
