@@ -21,8 +21,8 @@ These are two simple plots made by doing the bare minimum changes to the code fo
 
 ### Cambridge
 
-![a small slice of Cambridge](https://i.imgur.com/yI50c8r.jpg)
+![](https://i.imgur.com/yI50c8r.jpg)
 
 ### Oxford
 
-![a small slice of Oxford](https://i.imgur.com/AxXkssT.jpg)
+![](https://i.imgur.com/AxXkssT.jpg)
