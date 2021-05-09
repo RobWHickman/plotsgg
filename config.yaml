@@ -1,14 +1,14 @@
-baseurl: https://example.com
+baseurl: www.plots.gg
 languageCode: en
 defaultContentLanguage: en
-title: Hugo Theme Dream
+title: Plots.GG
 theme: hugo-theme-dream
 params:
-  author: Yue Yang
-  avatar: /img/avatar.jpeg
-  background: '#f7f7f7'
+  author: Robert Hickman
+  avatar: avatar.jpg
+  background: '#f4e9f7'
   email: g1enyy0ung@gmail.com
-  headerTitle: Hugo Theme Dream
+  headerTitle: Plots.GG
   linkColor: seagreen
-  motto: Motto
-  siteStartYear: 2016
+  motto: A place for some plots, mostly in R, mostly using {ggplot2}
+  siteStartYear: 2021
