@@ -1,5 +1,5 @@
 ---
-title: The Information Capital - Page 43
+title: 'The Information Capital - Page 43'
 author: 'Robert Hickman'
 date: '2021-05-10'
 slug: []
