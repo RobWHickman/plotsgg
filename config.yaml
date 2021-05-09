@@ -11,7 +11,7 @@ params:
   navlinks:
     - home: yes
       name: Home
-      url: portfolio/
+      url: /plots
   sidebarAbout:
     - I am a data scientist and former academic
     - Originally from and currently based in London
