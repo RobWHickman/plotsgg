@@ -1,0 +1,38 @@
+---
+title: "the Info Capital-page 43"
+weight: 5
+author: "Robert Hickman"
+date: "2021-05-09T18:00:00+05:30"
+draft: false
+image: https://i.imgur.com/QK7rf0f.jpg
+showonlyimage: true
+output: html_document
+---
+
+_way back before wfh, people used to actually travel to work_
+
+<!--more-->
+
+I recently got my hands on a copy of [The Information Capital](https://www.waterstones.com/book/london-the-information-capital/james-cheshire/oliver-uberti/9780141978796) by James Chesire and Oliver Uberti (which is great and you should definitely buy it) and given that I love the city and also love doing plots and stuff with open-source data I thought I'd try my hand at recreating them. This is the first one of these, from page 43 of the book showing commuter flows from the 2011 census. (side note: this is one of the fields of the census that is going to be fucked by Covid-19 in the 2021 update).
+
+![](https://i.imgur.com/QK7rf0f.jpg)
+
+## Data Sourcing
+
+★★★★★
+Very easy- prep-prepared and released as a csv from the census then a few easily available shapefile sets
+
+## Main Plot Recreation
+
+★★★★☆
+Pretty easy once you do a join and cast the two points to a line. Couldn't fully work out how they've coloured and alpha'd the lines but think I got close
+
+## Fiddliness
+
+★★☆☆☆
+Pretty fiddly place name labels and making the inset plot
+
+# Code
+
+fully commented code [here]()
+

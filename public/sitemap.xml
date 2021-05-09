@@ -2,14 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://plots.gg/plots/info_capital_page43/</loc>
+    <lastmod>2021-05-09T18:00:00+05:30</lastmod>
+  </url><url>
     <loc>https://plots.gg/plots/lidar_squares/</loc>
     <lastmod>2021-05-09T11:00:00+05:30</lastmod>
   </url><url>
     <loc>https://plots.gg/plots/</loc>
-    <lastmod>2021-05-09T11:00:00+05:30</lastmod>
+    <lastmod>2021-05-09T18:00:00+05:30</lastmod>
   </url><url>
     <loc>https://plots.gg/</loc>
-    <lastmod>2021-05-09T11:00:00+05:30</lastmod>
+    <lastmod>2021-05-09T18:00:00+05:30</lastmod>
   </url><url>
     <loc>https://plots.gg/categories/</loc>
     <lastmod>2020-12-01T21:13:14-05:00</lastmod>
